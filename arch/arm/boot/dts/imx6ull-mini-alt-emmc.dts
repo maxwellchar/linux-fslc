@@ -140,6 +140,7 @@
 		pinctrl-0 = <&pinctrl_tsc_int &pinctrl_tsc_rst>;
 		interrupt-parent = <&gpio1>;
 		interrupts = <9 IRQ_TYPE_EDGE_FALLING>;
+		irq-gpios = <&gpio1 9 GPIO_ACTIVE_LOW>;
 		reset-gpios = <&gpio5 9 GPIO_ACTIVE_LOW>;
 		touchscreen-swapped-x-y;
 		status = "okay";

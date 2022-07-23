@@ -106,6 +106,8 @@ struct edt_ft5x06_ts_data {
 	struct regulator *vcc;
 	struct regulator *iovcc;
 
+	/* request irq_gpio and configurate to input mode */
+	struct gpio_desc *irq_gpio;
 	struct gpio_desc *reset_gpio;
 	struct gpio_desc *wake_gpio;
 
@@ -1140,6 +1142,16 @@ static int edt_ft5x06_ts_probe(struct i2c_client *client,
 					 tsdata);
 	if (error)
 		return error;
+
+	/* request irq_gpio and configurate to input mode */
+	tsdata->irq_gpio = devm_gpiod_get_optional(&client->dev,
+						     "irq", GPIOD_IN);
+	if (IS_ERR(tsdata->irq_gpio)) {
+		error = PTR_ERR(tsdata->irq_gpio);
+		dev_err(&client->dev,
+			"Failed to request GPIO irq pin, error %d\n", error);
+		return error;
+	}
 
 	tsdata->reset_gpio = devm_gpiod_get_optional(&client->dev,
 						     "reset", GPIOD_OUT_HIGH);
