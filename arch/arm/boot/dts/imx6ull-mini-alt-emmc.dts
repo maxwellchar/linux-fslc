@@ -104,7 +104,7 @@
 	phy-handle = <&ethphy1>;
 	phy-supply = <&reg_peri_3v3>;
 	phy-reset-gpios = <&gpio5 8 GPIO_ACTIVE_LOW>;
-	phy-reset-duration = <30>;
+	phy-reset-duration = <50>;
 	status = "okay";
 
 	mdio {
@@ -308,13 +308,7 @@
 			MX6UL_PAD_ENET2_TX_EN__ENET2_TX_EN	0x1b0b0
 			MX6UL_PAD_ENET2_TX_DATA0__ENET2_TDATA00	0x1b0b0
 			MX6UL_PAD_ENET2_TX_DATA1__ENET2_TDATA01	0x1b0b0
-			MX6UL_PAD_ENET2_TX_CLK__ENET2_REF_CLK2	0x4001b031
-		>;
-	};
-
-	pinctrl_enet2_rst: enet2rstgrp {
-		fsl,pins = <
-			MX6UL_PAD_SNVS_TAMPER8__GPIO5_IO08	0xb0b0    /* ENET2 RST */
+			MX6UL_PAD_ENET2_TX_CLK__ENET2_REF_CLK2	0x4001b009
 		>;
 	};
 
@@ -367,12 +361,6 @@
 			MX6UL_PAD_LCD_ENABLE__LCDIF_ENABLE  0x79
 			MX6UL_PAD_LCD_HSYNC__LCDIF_HSYNC    0x79
 			MX6UL_PAD_LCD_VSYNC__LCDIF_VSYNC    0x79
-		>;
-	};
-
-	pinctrl_peri_3v3: peri3v3grp {
-		fsl,pins = <
-			MX6UL_PAD_SNVS_TAMPER2__GPIO5_IO02	0x1b0b0
 		>;
 	};
 
@@ -529,6 +517,28 @@
 	pinctrl_wdog: wdoggrp {
 		fsl,pins = <
 			MX6UL_PAD_LCD_RESET__WDOG1_WDOG_ANY    0x30b0
+		>;
+	};
+};
+
+&iomuxc_snvs {
+	pinctrl-names = "default_snvs";
+
+	pinctrl_enet2_rst: enet2rstgrp {
+		fsl,pins = <
+			MX6ULL_PAD_SNVS_TAMPER8__GPIO5_IO08	0xb0b0    /* ENET2 RST */
+		>;
+	};
+
+	pinctrl_peri_3v3: peri3v3grp {
+		fsl,pins = <
+			MX6ULL_PAD_SNVS_TAMPER2__GPIO5_IO02	0xb0b0
+		>;
+	};
+
+	pinctrl_tsc_rst: tscrstgrp {
+		fsl,pins = <
+			MX6ULL_PAD_SNVS_TAMPER9__GPIO5_IO09	0xb0b0 /* Reset */
 		>;
 	};
 };
